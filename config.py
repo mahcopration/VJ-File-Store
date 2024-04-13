@@ -91,13 +91,12 @@ class Var(object):
     
     else:
         ON_HEROKU = False
-    FQDN = str(getenv('FQDN', BIND_ADRESS)) if not ON_HEROKU or getenv('FQDN') else APP_NAME+'.herokuapp.com'
-    HAS_SSL=bool(getenv('HAS_SSL',False))
+    FQDN = str(getenv('FQDN', 'BIND_ADRESS:PORT')) if not ON_HEROKU or getenv('FQDN', '') else APP_NAME+'.herokuapp.com'
+    HAS_SSL=bool(getenv('HAS_SSL',True))
     if HAS_SSL:
-        URL = ""
+        URL = "https://{}/".format(FQDN)
     else:
-        URL = ""
-
+        URL = "http://{}/".format(FQDN)
 
 
 # Don't Remove Credit Tg - @VJ_Botz
